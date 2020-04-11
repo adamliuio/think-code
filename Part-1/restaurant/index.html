@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Restaurant</title>
+	<link rel="stylesheet" href="tailwind.min.css">
+</head>
+
+<body>
+	<div class="w-screen h-screen flex justify-center items-center">
+		<div class="flex flex-col">
+			<img id="chef" src="imgs/chef.jpeg" alt="" class="rounded-md border border-gray-300 mb-10">
+			<h1><span id="num">0</span> orders served!</h1>
+			<p id="chef-says" class="text-2xl text-center text-red-400 mb-10">We only make salad & pizza!</p>
+			<div class="">
+				<p class="text-xl mb-4 mx-auto text-center">Ingredients</p>
+				<input id="ingredients-1" type="text" class="text-xl mx-auto block rounded-md border border-gray-500 mb-4">
+				<input id="ingredients-2" type="text" class="text-xl mx-auto block rounded-md border border-gray-500 mb-4">
+			</div>
+			<button id="button" class="bg-green-400 text-2xl p-4 w-1/2 rounded-md mx-auto">Cook For Me!</button>
+		</div>
+	</div>
+	<script>
+		let i1 = document.getElementById("ingredients-1");
+		let i2 = document.getElementById("ingredients-2");
+		let b = document.getElementById("button").addEventListener("click", takeOrder);
+		let num = document.getElementById("num");
+
+		function takeOrder() {
+			let food = cook();
+			let chef = document.getElementById("chef");
+			let chefSays = document.getElementById("chef-says");
+			let served = false;
+
+			if (food === "salad") {
+				chef.src = "imgs/chef-salad.jpeg";
+				served = true;
+			} else if (food === "pizza") {
+				chef.src = "imgs/chef-pizza.jpeg";
+				served = true;
+			} else if (food === "angry") {
+				chef.src = "imgs/chef-angry.jpeg";
+				setTimeout(() => {
+					chef.src = "imgs/chef-sad.jpeg";
+					chefSays.innerHTML = "I become sad if I get angry!";
+				}, 4000);
+			}
+			if (served) {
+				num.innerHTML = (Number(num.innerHTML) + 1).toString();
+			}
+		}
+
+		function cook() {
+			let v1 = i1.value.toLowerCase();
+			let v2 = i2.value.toLowerCase();
+			let result;
+			if (v1 === "tomato" && v2 === "spinach") {
+				result = "salad";
+			} else if (v1 === "cheese" && v2 === "pepperoni") {
+				result = "pizza";
+			} else {
+				result = "angry";
+			}
+			i1.value = "";
+			i2.value = "";
+			return result;
+		}
+	</script>
+</body>
+
+</html>
